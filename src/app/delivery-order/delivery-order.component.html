@@ -1,34 +1,57 @@
+<form [formGroup]="formularioContacto" (ngSubmit)="button()">
 <div class="jumbotron">
-    <h2>Creación de ordenes de entrega</h2>
+    <h2>Creación de órdenes</h2>
 
     <div>
       <p class="lead">
         <span>Nombre Completo:</span>
-        <input type="text" [(ngModel)]="newDelivery.fullName">
+        <input type="text" formControlName="nombre" [(ngModel)]="newDelivery.fullName" required>
+        <span *ngIf="this.formularioContacto.get('nombre')?.errors?.['required']">
+          El campo no puede estar vacío.
+        </span>
       </p>
     </div>
     <div>
       <p class="lead">
         <span>Dirección:</span>
-        <input type="text" [(ngModel)]="newDelivery.fullAddress">
+        <input type="text" formControlName="direccion" [(ngModel)]="newDelivery.fullAddress" required>
+        <span *ngIf="this.formularioContacto.get('direccion')?.errors?.['required']">
+          El campo no puede estar vacío.
+        </span>
       </p>
     </div>
     <div>
       <p class="lead">
         <span>Email:</span>
-        <input type="text" [(ngModel)]="newDelivery.Email">
+        <input type="email" formControlName="email" [(ngModel)]="newDelivery.Email" required>
+        <span *ngIf="this.formularioContacto.get('email')?.errors?.['required']">
+          El campo no puede estar vacío.
+        </span>
+        <span *ngIf="this.formularioContacto.get('email')?.errors?.['email']">
+          El correo no es válido.
+        </span>
+        <span *ngIf="this.formularioContacto.get('email')?.errors?.['pattern']">
+          El correo no es válido.
+        </span>
       </p>
     </div>
     <div>
         <p class="lead">
           <span>Descripción:</span>
-          <input type="text" [(ngModel)]="newDelivery.Description">
+          <input type="text" formControlName="descripcion" [(ngModel)]="newDelivery.Description" required>
+          <span *ngIf="this.formularioContacto.get('descripcion')?.errors?.['required']">
+            El campo no puede estar vacío.
+          </span>
         </p>
       </div>
-      <div>
+     <!--<div>
         <h2>Cantidad de ordenes: {{deliveriesSize}}</h2>
-      </div>
+      </div>-->
     <div>
       <button type="button" class="btn btn-primary" (click)="saveNewDeliveryOrder()">Guardar</button>
     </div>
+    <!--<div>
+      <button type="button" class="btn btn-primary" (click)="goToOrderList()">Ver listado</button>
+    </div>-->
   </div>
+</form>
